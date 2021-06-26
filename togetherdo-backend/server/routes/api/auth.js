@@ -2,7 +2,6 @@ const {Router} = require('express')
 const {Op} = require('sequelize');
 const {User, Member, Task, Team} = require('../../models')
 const bcrypt = require('bcryptjs');
-const {route} = require('./task');
 const router = Router();
 
 router.get('/', (req, res) => {

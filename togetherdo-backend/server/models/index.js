@@ -103,7 +103,7 @@ const Member = db.define("members", {
 // Relations
 
 User.belongsToMany(Team, {through : Member});
-Team.belongsToMany(User,{through : Member});
+Team.belongsToMany(User, {through : Member});
 
 Team.hasMany(Task);
 Task.belongsTo(Team);
