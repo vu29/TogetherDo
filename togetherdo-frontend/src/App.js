@@ -1,12 +1,14 @@
-export const App = () => {
+import React from 'react';
 
+import { MainArea } from './components/layout/Main-Area';
+
+import { Navbar } from './components/layout/Navbar';
+
+export const App = () => {
   return (
     <div className="App">
-      Hello There!
-      <br />
-      General Kenobi!
-      <br />
-      You are a bold one
+        <Navbar />
+        <MainArea />
     </div>
   );
 }
