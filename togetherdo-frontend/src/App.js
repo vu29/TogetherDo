@@ -1,12 +1,12 @@
 import React from 'react';
 
 import { MainArea } from './components/layout/Main-Area';
-import { Header } from './components/layout/header';
+import Navbar from './components/layout/Header';
 
 export const App = () => {
   return (
     <div className="App">
-        <Header />
+        <Navbar/>
         <MainArea />
     </div>
   );

@@ -1,40 +1,51 @@
-import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  
-} from 'reactstrap';
-export const Header = () => {
-  const [collapsed, setCollapsed] = useState(true);
+import React from 'react'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import { useState, useEffect } from 'react'
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 
-  const toggleNavbar = () => setCollapsed(!collapsed);
 
-  return (
-    <div>
-      <Navbar color="faded" light>
-        <NavbarBrand href="/" className="mr-auto">TogetherDo</NavbarBrand>
-        <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-        <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <NavLink href="/components/">What</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">Is this happening </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink >Add Task </NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
-  );
+const Navigation = (props) => {
+
+
+    return (
+        <div >
+            {/* <nav className={"navigation"}>
+                <div className={"navigation-heading rounded-pill px-3"}>
+                    CovidFix
+                </div>
+                <div className={"navigation-items"}>
+                    <ul className={"navigation-item"}>
+                        <li className={"navigation-item-link mr-1"}><a href={"/health"}>Health</a></li>
+                        <li className={"navigation-item-link ml-4 navigation-active"}><a href={"/vaccine"}>Vaccine</a></li>
+                    </ul>
+                </div>
+            </nav> */}
+            <Navbar bg="primary" variant="dark">
+                <Container>
+                    <Navbar.Brand href="#">TogetherDo</Navbar.Brand>
+                    <Nav className="justify-content-end" style={{ width: "100%" }}>
+                        <Nav.Link >
+                            Add Task
+                        </Nav.Link>
+                        <NavDropdown title="Login/SignUp" id="navbarScrollingDropdown">
+                            <NavDropdown.Item href="#action3">Login</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="#action4">SignUp</NavDropdown.Item>
+
+                        </NavDropdown>
+
+
+                    </Nav>
+                </Container>
+            </Navbar>
+
+
+            
+        </div>
+
+
+    )
 }
 
-export default Header;
+export default Navigation;
