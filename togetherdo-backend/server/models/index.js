@@ -24,6 +24,7 @@ var db = new Sequelize({
 const User = db.define("users", {
     id: {
         type: Sequelize.INTEGER,
+        autoIncrement : true,
         primaryKey: true
     },
     username: {
@@ -48,7 +49,8 @@ const User = db.define("users", {
 const Task = db.define("tasks", {
     id: {
         type: Sequelize.INTEGER,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement : true,
     },
     title: {
         type: Sequelize.STRING,
@@ -74,6 +76,7 @@ const Task = db.define("tasks", {
 const Team = db.define("teams", {
     id: {
         type: Sequelize.INTEGER,
+        autoIncrement : true,
         primaryKey: true
     },
 
@@ -86,6 +89,7 @@ const Team = db.define("teams", {
 const Member = db.define("members", {
     id: {
         type: Sequelize.INTEGER,
+        autoIncrement : true,
         primaryKey: true
     },
     admin: {
@@ -109,5 +113,6 @@ Task.belongsTo(Member, {as : "createdBy"});
 
 
 module.exports = {
-    db
+    db,
+    User,Task,Team,Member
 }
