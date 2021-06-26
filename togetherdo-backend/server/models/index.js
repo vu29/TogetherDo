@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize-cockroachdb");
 const fs = require('fs');
+const {SequelizeScopeError} = require("sequelize-cockroachdb");
 
 // env variables
 require('dotenv').config();
@@ -21,28 +22,91 @@ var db = new Sequelize({
 });
 
 const User = db.define("users", {
-    id : {
-        type : Sequelize.INTEGER,
-        primaryKey : true,
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     },
-    username : {
-        type : Sequelize.STRING,
-        unique : true,
-        allowNull : false,
+    username: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false
     },
-    email : {
-        type : Sequelize.STRING,
-        allowNull : false,
-        unique : true,
-        validate : {
-            isEmail : true
+    email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true
         }
     },
-    passwordHash : {
-        type : Sequelize.STRING,
-        allowNull : false
+    passwordHash: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
-  });
+});
+
+const Task = db.define("tasks", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    title: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    content: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    expireAt: {
+        type: Sequelize.DATE,
+        allowNull: false
+    },
+    taskType: {
+        // 0 -> assignment
+        // 1 -> exam-type
+        type: Sequelize.BOOLEAN,
+        default: 0,
+        allowNull: false
+    }
+});
+
+const Team = db.define("teams", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+
+    teamName: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+});
+
+const Member = db.define("members", {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    admin: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        default: false
+    }
+});
+
+
+// Relations
+
+User.belongsToMany(Team, {through : Member});
+Team.belongsToMany(User,{through : Member});
+
+Team.hasMany(Task);
+Task.belongsTo(Team);
+
+Member.hasMany(Task, {as : "tasksCreated"});
+Task.belongsTo(Member, {as : "createdBy"});
+
 
 module.exports = {
     db
