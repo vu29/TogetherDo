@@ -21,7 +21,7 @@ app.use('/api',require('./routes'));
 // db
 const {db} = require('./models');
 
-db.sync({force : true}).then(()=>{
+db.sync({force : false}).then(()=>{
     // starting the server
     app.listen(PORT,()=>{
         console.log(`server listening on port ${PORT}`);
