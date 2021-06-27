@@ -59,5 +59,43 @@ router.post('/crate_task', async (req,res)=>{
     }
 })
 
+router.delete('/remove_task', async(req,res)=>{
+    if(!(req.body.userID && req.body.taskID)){
+        res.status(400)
+            .end();
+    }
+
+    const task = await Task.findOne({
+        where : {id : req.body.taskID}
+    });
+
+
+    if(!task){
+        return res.status(404)
+            .end();
+    }
+
+    if(task.createdById != req.body.userID){
+        return res.status(401)
+            .end();
+    }
+
+    try {
+        await task.destroy();
+        res.json({
+            success : true,
+            error : false
+        })
+    } catch (err) {
+        res.json({
+            success : false,
+            error : {
+                message : err.message
+            }
+        })
+    }
+
+
+})
 
 module.exports = router;
