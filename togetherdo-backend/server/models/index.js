@@ -108,8 +108,8 @@ Team.belongsToMany(User, {through : Member});
 Team.hasMany(Task);
 Task.belongsTo(Team);
 
-Member.hasMany(Task, {as : "tasksCreated"});
-Task.belongsTo(Member, {as : "createdBy"});
+User.hasMany(Task, {as : "tasksCreated"});
+Task.belongsTo(User, {as : "createdBy"});
 
 
 module.exports = {
